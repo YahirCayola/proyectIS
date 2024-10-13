@@ -1,8 +1,8 @@
+
 .navbar {
-    position: fixed;  /* Fija la barra en la parte superior */
-    top: 0;
-    left: 0;
-    width: 100%;  /* La barra ocupará todo el ancho */
+    position: fixed;
+    top: 0%;
+    width: 100%;
     background-color: var(--primary-color);
     display: flex;
     justify-content: space-between;
@@ -10,103 +10,88 @@
     padding: 1rem;
     color: var(--white);
     z-index: 1000;
-    flex-wrap: nowrap; /* Evita que los elementos salten a nuevas líneas */
-    overflow: hidden;  /* Asegura que no haya desbordamientos */
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;  /* Evita que el logo se reduzca */
-    cursor: pointer;
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
-}
-
-.logo:hover .logo-img {
+    width: 60px;
+    height: 60px;
     filter: drop-shadow(2px 2px 2px white);
 }
-
-.logo:hover .logo-img {
-    filter: drop-shadow(2px 2px 2px white);
+.logo-img:hover{
+    filter: drop-shadow var(--secondary-color);
 }
 
 .search-bar {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    margin: 0 1rem;
-    max-width: 500px;  /* Ajusta el ancho máximo del buscador */
-    min-width: 0;
+    margin: 0 2rem;
 }
 
 .search-bar input {
-    padding: 0.5rem;
+    padding: 0.1rem;
+    margin: 0.5rem;
     border: none;
-    border-radius: 30px 30px 30px 30px;
-    width: 100%;  /* Ocupa todo el espacio disponible */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-radius:44px;
+    width: 90%;
+    height: 40px;
+    max-width: 400px;
 }
-
 .search-bar button {
-    padding: 0.5rem 1rem;
-    background-color: var(--secondary-color);
+    display: flex;
+    padding: 1rem;
+    margin-top: 1px;
+    height: 40px;
+    background-color: var(--primary-color);
+    box-shadow:2px 2px 5px 1px  var(--secondary-color);
     border: none;
     color: var(--white);
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    border-radius: 30px 30px 30px 30px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    flex-shrink: 0;  /* Evita que el botón se reduzca */
-    transition: background-color 0.3s;
+    border-radius:20px;
+    transition: all 0.5s;
 }
-.search-bar button:hover {
-    background-color: #004d3a; /* Color más oscuro al pasar el cursor */
+button:hover{
+    background-color: var(--secondary-color);
+}
+button:active {
+    background-color: var(--tertiary-color);
+    color: #fff;
+    transform: scale(0.95);
 }
 .nav-links {
     display: flex;
-    gap: 1rem;
-    flex-wrap: nowrap; /* Los enlaces no deben saltar a nuevas líneas */
-    align-items: center;
+    gap: 0.5px;
 }
-
-.nav-link {
-    color: var(--white);
-    text-decoration: none;
-    white-space: nowrap;  /* Evita que los enlaces se partan en dos líneas */
-    padding: 0.5rem 1rem; /* Espaciado interno */
-    border-radius: 30px; /* Bordes redondeados */
-    background-color: var(--secondary-color);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra alrededor */
-    transition: background-color 0.3s, transform 0.1s;
-
-
-    display: flex;               /* Alinea los elementos horizontalmente */
-    align-items: center;          /* Alinea verticalmente al centro */
-    gap: 0.5rem;                  /* Espacio entre la imagen y el nombre */
-    text-decoration: none;
-    color: var(--white);          /* Color del texto */
-    font-size: 1rem;              /* Tamaño del texto */
-
-
-
-
+.nav-link{
+        display: flex;
+        padding: 0.5rem 0.5rem; 
+        margin: 0.5rem;
+        height: auto; 
+        background-color: var(--primary-color);
+        box-shadow: 2px 2px 5px 1px var(--secondary-color);
+        border: none;
+        color: var(--white);
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.5s;   
 }
 .nav-link:hover {
-    background-color: #004d3a; /* Cambia de color al pasar el cursor */
-    transform: scale(1.05); /* Pequeño zoom */
+    background-color: var(--secondary-color);
 }
-.nav-links a {
-    margin-left: 1rem;            /* Espacio entre los enlaces del nav */
+.nav-link:active {
+    background-color: var(--tertiary-color);
+    color: #fff;
+    transform: scale(0.95); /* Efecto de pulso al hacer clic */
 }
-.cart-count {
-    background-color: #ff4500;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 0.8em;
+ion-icon{
+    padding-top: 5px;
 }
+
 .profile-img {
     width: 35px;
     height: 35px;
@@ -116,6 +101,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra alrededor */
 }
 
+.cart-count {
+    background-color: #ff4500;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+}
 
 .hamburger {
     display: none;
@@ -131,39 +122,54 @@
     transition: 0.4s;
 }
 
-/* Responsive para pantallas pequeñas */
-@media (max-width: 750px) {
+
+@media (max-width: 768px) {
     .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center; /* Centra todos los elementos */
+        padding: 5px;
     }
-
-    .logo {
-        margin-bottom: 1rem;
-    }
-
     .search-bar {
-        width: 100%;
-        order: 2;
-        margin-bottom: 1rem;
+        order: 1;
+        width: 50%;
+        margin: 1rem 0;
+        padding: 1px;
     }
+    .search-bar button{
+       font-size: 9px;
+       border-radius: 15px;
+       width: 38px;
+       height: 35px;
 
+    }
     .nav-links {
         display: none;
-        flex-direction: column;
         width: 100%;
-        order: 4; /* Los enlaces van al final */
-        background-color: var(--primary-color);
-        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        order: 2;
+        position: absolute; 
+        top: 100%; 
+        right: 0; 
+        background-color:var(--primary-color); 
+        z-index: 1000; 
     }
 
     .nav-links.active {
         display: flex;
+        width: 30%;
     }
-
+    .nav-link{
+        width: 100%;
+        border: 1px;
+        margin: 1px;
+    }
     .hamburger {
         display: flex;
-        order: 3;/* Mueve el botón hamburguesa al final */
+        order: 1;
+        padding: 5px;
     }
+
 }

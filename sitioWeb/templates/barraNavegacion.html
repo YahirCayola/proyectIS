@@ -1,33 +1,35 @@
 {% load static %}
 <nav class="navbar">
     <div class="logo">
-        <a href="{% url 'base' %}" class="nav-link">
+        <a href="{% url 'base' %}">
             <img src="{% static 'LogoIS_Oficial.png' %}" alt="Logo" class="logo-img">
         </a>
     </div>
     <div class="search-bar">
-        <input type="text" placeholder="Buscar productos...">
-        <button><i class="fas fa-search"></i></button>
+        <input class="inputBuscar" id="inputBuscar" type="text" placeholder="Buscar productos...">
+        <button onclick="buscarProducto()"><i class="fas fa-search"></i></button>
+        <p id="noResultMessage" style="display: none; color: red;">No se encontró ningún producto con ese nombre.</p>
     </div>
+
     <div class="nav-links" id="navLinks">
         <a href="{% url 'base' %}" class="nav-link">Inicio</a> <!-- Asegúrate de tener la URL configurada -->
         <a href=# class="nav-link">Carrito <span class="cart-count">0</span></a>
-        <!--<a href=# class="nav-link">Iniciar Sesion</a>-->
-        {% if request.session.user_id %}
-        <a href="{% url 'perfil' %}" class="nav-link">
-            {% if user.foto %}
-                <img src="{{ user.foto.url }}" alt="Foto de perfil" class="profile-img">
-            {% else %}
-                <img src="{% static 'default-profile.png' %}" alt="Foto de perfil" class="profile-img">
-            {% endif %}
-            {{ user.nombre }}
-        </a>
-        {% else %}
-            <a href="#" class="nav-link" id="loginBtn">
-                <img src="{% static 'default-profile.png' %}" alt="Perfil" class="profile-img">
-                Iniciar Sesión
-            </a>
-        {% endif %}
+                <!--<a href=# class="nav-link">Iniciar Sesion</a>-->
+                {% if request.session.user_id %}
+                <a href="{% url 'perfil' %}" class="nav-link">
+                    {% if user.foto %}
+                        <img src="{{ user.foto.url }}" alt="Foto de perfil" class="profile-img">
+                    {% else %}
+                        <img src="{% static 'default-profile.png' %}" alt="Foto de perfil" class="profile-img">
+                    {% endif %}
+                    {{ user.nombre }}
+                </a>
+                {% else %}
+                    <a href="#" class="nav-link" id="loginBtn">
+                        <img src="{% static 'default-profile.png' %}" alt="Perfil" class="profile-img">
+                        Iniciar Sesión
+                    </a>
+                {% endif %}
     </div>
     <div class="hamburger" id="hamburger">
         <span></span>

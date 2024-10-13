@@ -89,6 +89,10 @@ def perfil_view(request):
         if nueva_contraseña:  # Si se proporcionó una nueva contraseña
             user.contraseña = nueva_contraseña  # Asigna la nueva contraseña
 
+        nuevo_celular = request.POST.get('celular')
+        if nuevo_celular:  # Si se proporcionó una nueva contraseña
+            user.celular = nuevo_celular  # Asigna la nueva contraseña
+            
         user.save()  # Guarda los cambios en la base de datos
 
     return render(request, 'perfil.html', {'user': user})

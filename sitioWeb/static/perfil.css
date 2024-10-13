@@ -1,25 +1,103 @@
-.profile-config {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+.menu-perfil {
+    width: 15%;
+    background-color: #02735E; /* Verde oscuro */
+    padding-top: 40px;
+    height: calc(100vh - 60px); /* Ajusta la altura para descontar el header */
+    box-sizing: border-box;
+    position: fixed; /* Fija el aside al lado izquierdo */
+    top: 90px; /* Desplaza el aside hacia abajo, dejando espacio para el header */
+    left: 0;
+    z-index: 1; /* Asegura que no quede por encima del header */
+    color: #fff;
 }
 
-.profile-photo {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-photo img {
-    width: 150px;
-    height: 150px;
+.menu-perfil img {
+    width: 6.25rem;
+    height: 6.25rem;
     border-radius: 50%;
+    display: block;
+    margin: 0 auto 20px auto;
     object-fit: cover;
 }
 
+.lista-perfil {
+    list-style-type: none;
+    padding: 0px;    
+}
+
+.lista-perfil li {
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    
+   
+      
+}
+.lista-perfil li a {
+    color: #fff; /* Cambia el color del texto de los enlaces a blanco */
+    text-decoration: none; /* Opcional: elimina el subrayado de los enlaces */
+    display: block;
+    padding-left: 10px;
+    width: 100%;
+    box-sizing: borde-box;
+    
+}
+.lista-perfil :active {
+    background-color: #F27405; /* Naranja */
+}
+.lista-perfil li:hover{
+    background-color: #03A678
+    
+}
+
+.profile-config {
+    background-color: white;
+    padding: 3.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    /* Ajustar márgenes */
+    margin-left: 20rem; /* Ajustar según la anchura del menú */
+    margin-top: 8rem; /* Aumentar para que no se superponga con la barra de navegación */
+    margin-right: 3rem;
+    
+    position: relative; /* O quitar si no es necesario */
+    z-index: 1; /* Asegúrate que esté por debajo del menú y barra */
+}
+
+
+
+.profile-photo {
+    
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    max-width: 25rem; /* Define el tamaño máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    
+}
+
+.profile-photo img {
+    width: 20.25rem;
+    height: 20.25rem;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    padding: 1rem;
+    
+}
+
+#botones-contenedor{
+    display: flex; /* Alinea los botones en una fila */
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 3rem; /* Espacio entre los botones */
+    
+
+}
+
 #editar-imagen {
-    background-color: #007bff;
+    display: block;
+    background-color: #F27405;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -28,18 +106,50 @@
     margin-top: 10px;
 }
 
+.save-imagen{
+    display: none;
+    background-color: #02735E;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+ #editar-datos{
+    background-color: #F27405;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+ }
+
+
 form {
-    display: flex;
+    display: flex; /* Hace que los elementos dentro del form se alineen en una fila */
     flex-direction: column;
+   
+        
 }
 
 label {
+    display: flex;
+    flex-direction: column;
     margin-top: 10px;
 }
 
-input {
+.profile-config form input{
+    background: #03A678;
     padding: 5px;
     margin-bottom: 10px;
+    border: none;
+    color: white;
 }
 
 .button-group {
@@ -47,9 +157,12 @@ input {
     justify-content: space-between;
     margin-top: 20px;
 }
+
+
 .cancelar {
+   
     text-decoration: none;
-    display: inline-block;
+    display: none;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -58,43 +171,28 @@ input {
     color: black;
 }
 .save {
+    display:none;
+    background-color: #02735E;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.save {
-    background-color: #006400;
-    color: white;
+.logoutS {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    background-color: #02735E; /* Color de fondo del botón */
+    color: white; /* Color del texto */  
+}
+.logoutS:hover{
+    background-color: #dc3545
+    
+}
+.logout, .ofertarM {
+    display: none;
 }
 
-.logout {
-    text-decoration: none; /* Quita el subrayado del enlace */
-    background-color: #dc3545; /* Color de fondo del botón */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado interno */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    margin-top: 20px; /* Espaciado superior */
-    width: 100%; /* Ancho completo */
-    display: inline-block; /* Para permitir el tamaño y espaciado */
-    text-align: center; /* Centra el texto */
-}
-.ofertarM {
-    text-decoration: none; /* Quita el subrayado del enlace */
-    background-color: #02735e; /* Color de fondo del botón */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-}
 
 
 .materials {
@@ -137,15 +235,87 @@ input {
     cursor: pointer;
     margin-bottom: 10px;
 }
-@media (min-width: 768px) {
-
+/* Estilos para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
     .profile-config {
-        flex: 1;
-        margin-right: 20px;
-        margin-bottom: 0;
+        margin-left: 16%; /* Espacio suficiente para el menú lateral */
+        margin-right: 4rem;
+        width: 90%; /* Que se adapte mejor al tamaño de la pantalla */
     }
 
-    .materials {
-        flex: 2;
+
+    .menu-perfil {
+        width: 15%;
+        height: calc(100vh - 60px); /* Altura completa, menos el header */
+    }
+}
+
+/* Estilos para pantallas pequeñas (tabletas y móviles) */
+@media (max-width: 768px) {
+    .menu-perfil {
+        width: 100%; /* Menú ocupa todo el ancho en móviles */
+        height: auto; /* Permitir que la altura crezca según el contenido */
+        position: relative; /* Eliminar la posición fija */
+        top: 0; /* Restablecer la posición del menú */
+        display: flex; /* Convertir en un menú superior */
+        justify-content: space-around; /* Alinear los enlaces horizontalmente */
+        padding-top: 0; /* Eliminar el espacio superior */
+        background-color: #02735E;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .profile-config {
+        margin-left: 0; /* Eliminar el margen lateral */
+        margin-right: 0; /* Eliminar el margen lateral */
+        margin-top: 2rem; /* Reducir el margen superior */
+        padding: 1rem; /* Ajustar el padding en pantallas pequeñas */
+        width: 100%; /* Ocupa todo el ancho */
+    }
+
+    .profile-photo img {
+        width: 12.25rem; /* Reducir el tamaño de la imagen de perfil */
+        height: 12.25rem;
+    }
+
+    /* Ajustar el tamaño de los botones */
+    #botones-contenedor {
+        flex-direction: column; /* Alinear los botones verticalmente */
+        gap: 1rem; /* Espacio entre botones */
+    }
+
+    /* Cambiar el tamaño del menú */
+    .lista-perfil {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0;
+        margin-top: 1rem;
+    }
+
+    .lista-perfil li {
+        margin: 0 0.5rem; /* Margen reducido para enlaces */
+    }
+
+    .materials-grid {
+        grid-template-columns: 1fr; /* Ocupa una columna en pantallas pequeñas */
+    }
+}
+
+/* Estilos para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    .profile-photo img {
+        width: 8.25rem;
+        height: 8.25rem;
+    }
+
+    .menu-perfil img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    /* Botones más pequeños */
+    #editar-imagen, .save-imagen, #editar-datos, .save {
+        padding: 5px 10px;
     }
 }

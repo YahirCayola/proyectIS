@@ -7,7 +7,7 @@
                 <ul class="subcategory-list">
                     {% for subcategoria in categoria.subcategorias.all %}
                         <li class="subcategory">
-                            <button class="subcategory-btn">{{ subcategoria.nombre }}</button>
+                            <button class="subcategory-btn" data-subcategoria-id="{{ subcategoria.id }}">{{ subcategoria.nombre }}</button>
                         </li>
                     {% endfor %}
                 </ul>
