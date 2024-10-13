@@ -130,11 +130,14 @@ def ofertarMView(request):
         titulo = request.POST.get('titulo')
         provincia = 'Yacuma'
         direccion = request.POST.get('urlMapa')
-        material = 'Perfiles'
+        material = request.POST.get('material')
         precio = request.POST.get('precio')
-        estados = 'Nuevo'
+        estados = request.POST.get('estado')
         descripcion = request.POST.get('descripcion')
 
+        print(f"Material recibido: {material}")
+        print(f"provincia: {provincia}")
+        print(f"estado: {estados}")
         # Recuperar las instancias necesarias
         subcategoria_obj = subCategoria.objects.get(nombre=material)
         estado_obj = EstadoDelProducto.objects.get(estado=estados)
