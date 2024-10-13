@@ -154,6 +154,11 @@ def ofertarMView(request):
         # Guardar el producto
         producto.save()
 
+        # Guardar las imágenes subidas
+        for archivo in request.FILES.getlist('archivo'):
+            imagen = Imagenes(ruta=archivo, producto=producto)
+            imagen.save()
+
         messages.success(request, '¡Oferta creada exitosamente!')
         return redirect('base')
 
