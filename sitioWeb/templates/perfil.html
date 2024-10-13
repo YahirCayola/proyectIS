@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Perfil
+{% endblock %}
+
+{% block contenidos %}
+    {% include 'cuenta.html' %}
+{% endblock %}
+<!--{% block materiales %}
+    {% include 'materiales.html' %}
+{% endblock %}-->
+{% block extra_js %}
+    <script src="{% static 'perfil.js' %}"></script>
+{% endblock %}

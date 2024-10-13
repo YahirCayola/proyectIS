@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Tienda{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'perfil.css' %}">
+    <link rel="stylesheet" href="{% static 'ofertar.css' %}">
+    <link rel="stylesheet" href="{% static 'publicaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'barraNavegacion.css' %}">
+    <link rel="stylesheet" href="{% static 'categorias.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Navbar -->
+    <header>
+    {% block barraNav %}
+        <!--inicio de sesion -->
+        {% include 'barraNavegacion.html' %}
+    {% endblock %}
+    </header>
+    <!-- Modal de Login -->
+    {% block contenidoLogin %}
+        <!--inicio de sesion -->
+        {% include 'login.html' %}
+    {% endblock %} 
+    <!-- Contenido principal -->
+
+
+    <main>
+        <!--aqui va el contenido -->
+        {% block contenidos %}
+        <!-- Contenido por defecto (para otras páginas) -->
+            {% block categorias %}
+                {% include 'categorias.html' %}
+            {% endblock %}
+
+            {% block publicaciones %}
+                {% include 'publicaciones.html' %}
+            {% endblock %}
+    {% endblock %} 
+        
+    </main>
+
+    <footer>
+        <p>© 2024 Mi Tienda. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'hamburguesa.js' %}"></script>
+    <script src="{% static 'login.js' %}"></script>
+    <script src="{% static 'perfil.js' %}"></script>
+    <script src="{% static 'categorias.js' %}"></script>
+    <script src="{% static 'ofertar.js' %}"></script>
+</body>
+</html>

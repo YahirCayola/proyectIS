@@ -1,0 +1,22 @@
+{% load static %}
+<section class="contentP">
+    <h1>Los Mejores Materiales para Tu Construcción</h1>
+    <p>Calidad garantizada a precios competitivos. ¡Compra ahora y recibe tu pedido en la puerta de tu casa!</p>
+    
+    <div class="product-grid">
+        {% for producto in productos %}
+        <div class="product-card">
+            <img src="{{ producto.imagenes.first.ruta.url }}" alt="{{ producto.nombre }}">
+            <h3>{{ producto.nombre }}</h3>
+            <h2 id >{{ producto.subcategoria.nombre }}</h2>
+            <p>{{ producto.descripcion }}</p>
+            <span class="precio">{{ producto.precio }} Bs</span>    <!--"{% url 'base' %}"-->
+            <!--<button onclick="alert('Hola Mundo')">Prueba</button>-->
+            <button class="agregar-button" onclick=location.href= "{% url 'perfil' %}" >Agregar al Carrito</button>
+            
+        </div>
+        {% empty %}
+        <p>No hay productos disponibles en este momento.</p>
+        {% endfor %}
+    </div>
+</section> 

@@ -1,0 +1,101 @@
+
+/* Estilos generales de categorías */
+.categorias {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--primary-dark);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+}
+
+/* Encabezado de Categorías */
+.categorias h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+/* Lista de categorías y subcategorías */
+.category-list,
+.subcategory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Categorías principales */
+.category {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden; /* Evita que se desborde contenido */
+}
+
+/* Botón de Categoría */
+.category-btn {
+    width: 100%;
+    text-align: left;
+    background-color: var(--primary-color);
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-btn:hover {
+    background-color: #03a678;
+    transform: scale(1.02); /* Efecto ligero de zoom */
+}
+
+/* Icono indicador (flecha) */
+.category-btn::after {
+    content: '▼'; /* Flecha hacia abajo */
+    font-size: 14px;
+    transition: transform 0.3s;
+}
+
+/* Rotar la flecha cuando esté abierta */
+.category-btn.active::after {
+    transform: rotate(-180deg);
+}
+
+/* Subcategorías */
+.subcategory-list {
+    display: none;
+    padding: 10px 20px;
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--primary-color);
+    animation: fadeIn 0.3s ease-in-out; /* Animación suave */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Cada subcategoría */
+.subcategory {
+    padding: 8px 0;
+    transition: background-color 0.3s;
+}
+
+.subcategory-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.subcategory:hover {
+    background-color:  #03a678;
+    color: var(--primary-dark);
+}

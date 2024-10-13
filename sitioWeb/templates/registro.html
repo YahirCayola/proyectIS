@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Asegúrate de tener el CSS en la misma carpeta o ajustar la ruta -->
+    <link rel="stylesheet" href="{% static 'registro.css' %}"> <!-- CSS específico para la página de registro -->
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="registration-form">
+        <h2>Registro de Usuario</h2>
+        <form id="registrationForm" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Nombre de usuario" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" required>
+            <button type="submit">Registrarse</button>
+        </form>
+        <div class="login-link">
+            <a href="{% url 'base' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+        </div>
+    </div>
+    
+    <!--<script src="{% static 'registro.js' %}"></script> --><!-- JavaScript específico para la página de registro -->
+</body>
+</html>

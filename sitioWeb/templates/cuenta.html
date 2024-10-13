@@ -1,0 +1,31 @@
+<div class="profile-config">
+    <h2>Configuración del Perfil</h2>
+     
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="profile-photo">
+            <img id="preview" src="{% if user.foto %}{{ user.foto.url }}{% else %}https://via.placeholder.com/150{% endif %}" alt="Foto de perfil">
+            <input type="file" name="imagenPerfil" id="imagenPerfil" style="display: none;">
+            <button type="button" id="editar-imagen">Cambiar foto</button>
+        </div>
+
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="nombre" value="{{ user.nombre }}">
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="correo" value="{{ user.correo }}" readonly>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="contraseña" value="••••••">
+
+        <div class="button-group">
+            <!--<button type="button" class="cancel">Cancelar</button>-->
+            <a href="{% url 'perfil' %}" class="cancelar">Cancelar</a>
+            <button type="submit" class="save">Guardar</button>
+        </div>
+    </form>
+    <!--<button class="logout">Cerrar sesión</button              >-->
+    <a href= "{% url 'logout' %}" class="logout">Cerrar sesión</a>
+    <a href="{% url 'ofertar' %}" class ="ofertarM"> Ofertar Material</a>
+</div>

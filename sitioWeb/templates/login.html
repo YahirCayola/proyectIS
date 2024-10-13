@@ -1,0 +1,21 @@
+{% load static %}
+<!-- Modal de Login -->
+<div id="loginModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Iniciar Sesión</h2>
+            <span class="close" id="closeModal">×</span>
+        </div>
+        <div class="modal-body">
+            <form id="loginForm" method="POST" action="{% url 'login' %}" onsubmit="cerrarLogin()">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Nombre de usuario" required="">
+                <input type="password" name="password" placeholder="Contraseña" required="">
+                <button type="submit">Ingresar</button>
+            </form>
+            <div class="create-account">
+                <a href="{% url 'registro' %}" id="createAccount">Crear cuenta</a>
+            </div>
+        </div>
+    </div>
+</div>

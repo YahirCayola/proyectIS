@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ofertar Material{% endblock %}
+{% block asides %}
+    {% include 'cuenta.html' %}
+{% endblock %}
+{% block contenidos %}
+<div class="container2">
+    <h1>Ofertar Material</h1>
+    <form id="ofertaForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Campo para el título del producto -->
+        <div class="form-group">
+            <label for="titulo">Título del Producto:</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Ingresa el título del producto" required>
+        </div>
+
+        <div class="form-group inline">
+            <label for="departamento">Departamento:</label>
+            <select id="departamento" name="departamento" required>
+                <option value="" disabled selected>Seleccionar Departamento</option>
+                <option value="Chuquisaca" data-provincias='["Azurduy", "Belisario Boeto", "Hernando Siles", "Jaime Zudáñez", "Luis Calvo", "Nor Cinti", "Oropeza", "Sud Cinti", "Tomina", "Yamparáez"]'>Chuquisaca</option>
+                <option value="La Paz" data-provincias='["Abel Iturralde", "Aroma", "Bautista Saavedra", "Caranavi", "Eliodoro Camacho", "Franz Tamayo", "Gualberto Villarroel", "Ingavi", "Inquisivi", "José Manuel Pando", "Larecaja", "Loayza", "Los Andes", "Manco Kapac", "Muñecas", "Nor Yungas", "Omasuyos", "Pacajes", "Pedro Domingo Murillo", "Sud Yungas"]'>La Paz</option>
+                <option value="Cochabamba" data-provincias='["Arani", "Arque", "Ayopaya", "Bolívar", "Campero", "Capinota", "Carrasco", "Cercado", "Chapare", "Esteban Arce", "Germán Jordán", "Mizque", "Punata", "Quillacollo", "Tapacarí", "Tiraque"]'>Cochabamba</option>
+                <option value="Santa Cruz" data-provincias='["Andrés Ibáñez", "Ángel Sandóval", "Chiquitos", "Cordillera", "Florida", "Germán Busch", "Guarayos", "Ichilo", "Manuel María Caballero", "Ñuflo de Chávez", "Obispo Santistevan", "Sara", "Tomás Frías", "Vallegrande", "Velasco"]'>Santa Cruz</option>
+                <option value="Oruro" data-provincias='["Atahuallpa", "Carangas", "Cercado", "Dalence", "Eduardo Avaroa", "Ladislao Cabrera", "Litoral", "Mejillones", "Nor Carangas", "Pantaleón Dalence", "Poopó", "Sabaya", "Sajama", "Sebastián Pagador", "Sud Carangas", "Tomas Barrón"]'>Oruro</option>
+                <option value="Potosí" data-provincias='["Alonso de Ibáñez", "Antonio Quijarro", "Bernardino Bilbao", "Charcas", "Chayanta", "Cornelio Saavedra", "Daniel Campos", "Enrique Baldivieso", "José María Linares", "Modesto Omiste", "Nor Chichas", "Nor Lípez", "Rafael Bustillo", "Sud Chichas", "Sud Lípez", "Tomás Frías"]'>Potosí</option>
+                <option value="Tarija" data-provincias='["Aniceto Arce", "Avilés", "Burdet OConnor", "Cercado", "Gran Chaco", "José María Avilés"]'>Tarija</option>
+                <option value="Beni" data-provincias='["Cercado", "Antonio Vaca Díez", "General José Ballivián", "Iténez", "Mamoré", "Marbán", "Moxos", "Yacuma"]'>Beni</option>
+                <option value="Pando" data-provincias='["Abuná", "Federico Román", "Madre de Dios", "Manuripi", "Nicolás Suárez"]'>Pando</option>
+            </select>
+            <label for="provincia">Provincia:</label>
+            <select id="provincia" name="provincia" required>
+                <option value="" disabled selected>Seleccionar Provincia</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="urlMapa">Dirección:</label>
+            <input type="text" id="urlMapa" name="urlMapa" placeholder="Añade tu direccion" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="material">Tipo de Material:</label>
+            <select id="material" name="material" required>
+                <option value="" disabled selected>Seleccionar Categoría</option>
+                <optgroup label="Acero">
+                    <option value="laminas">Láminas</option>
+                    <option value="barrilla">Barrilla</option>
+                    <option value="alambron">Alambrón</option>
+                    <option value="perfiles">Perfiles</option>
+                </optgroup>
+                <optgroup label="Tejas y Cubiertas">
+                    <option value="tejas">Tejas</option>
+                    <option value="canaletas">Canaletas</option>
+                </optgroup>
+                <optgroup label="Cemento y Complemento">
+                    <option value="cemento">Cemento</option>
+                    <option value="yeso">Yeso</option>
+                    <option value="cal">Cal</option>
+                    <option value="mortero">Mortero</option>
+                </optgroup>
+                <optgroup label="Ladrillos y Bloques">
+                    <option value="ladrillos">Ladrillos</option>
+                    <option value="bloques">Bloques de Concreto</option>
+                </optgroup>
+                <optgroup label="Arenas">
+                    <option value="cascajo">Cascajo</option>
+                    <option value="grava">Grava</option>
+                    <option value="fina">Fina</option>
+                </optgroup>
+            </select>
+        </div>
+        
+        <div class="form-group inline">
+            <div>
+                <label for="precio">Precio:</label>
+                <input type="text" maxlength="6" name="precio" id="precio" placeholder="Precio Total (Bs)" required autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" />
+            </div>
+        </div>
+        
+        <div class="custom-file-upload">
+            <label for="archivo">Subir Archivo(s):</label>
+            <input type="file" id="archivo" name="archivo" required accept=".png, .jpeg" multiple>
+            <label for="archivo" class="custom-file-button">Seleccionar archivo(s)</label>
+            <span id="file-name">No se ha seleccionado archivo</span>
+        </div>
+        
+        <div id="preview-container" class="preview-container">
+            <!-- Aquí se mostrarán las miniaturas -->
+        </div>
+        
+        <div>
+            <label for="estado">(Opcional) Estado:</label>
+            <select id="estado" name="estado">
+                <option value="" disabled selected>Seleccionar Estado</option>
+                <option value="nuevo">Nuevo</option>
+                <option value="seminuevo">Seminuevo</option>
+                <option value="usado">Usado</option>
+                <option value="con_detalles">Con detalles</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required placeholder="Añade una pequeña descripción..." rows="2" maxlength="250"></textarea>
+        </div>
+        
+        <div class="checkbox-container">
+            <input type="checkbox" id="terminos" name="terminos" />
+            <label for="terminos">Acepto las Condiciones del servicio y la Política de Privacidad</label>
+        </div>
+        
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary" id="button-ofertar" disabled>Ofertar</button>
+            <button type="button" class="btn btn-secondary" id="button-cancelar">Cancelar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'perfil.js' %}"></script>
+    <script src="{% static 'ofertar.js' %}"></script>
+{% endblock %}

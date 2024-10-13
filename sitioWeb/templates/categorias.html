@@ -1,0 +1,17 @@
+<div class="categorias">
+    <h2>Categorías</h2>
+    <ul class="category-list">
+        {% for categoria in categorias %}
+            <li class="category">
+                <button class="category-btn">{{ categoria.nombre }}</button>
+                <ul class="subcategory-list">
+                    {% for subcategoria in categoria.subcategorias.all %}
+                        <li class="subcategory">
+                            <button class="subcategory-btn">{{ subcategoria.nombre }}</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
