@@ -6,6 +6,9 @@ from django.http import HttpResponse ,JsonResponse
 from django.contrib.auth import authenticate, login ,logout , authenticate
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 def baseView(request):
@@ -102,11 +105,39 @@ def logout_request(request):
     messages.info(request, "Saliste exitosamente")
     return redirect("base")
 
-def agregar_al_carrito(request, producto_id):
+# Solo temporal, asegúrate de corregir la gestión del token CSRF.
+@require_POST
+def agregar_al_carrito(request):
+    try:
+        # Obtener los datos del cuerpo de la solicitud
+        data = json.loads(request.body)
+        producto_id = data.get('producto_id')
+
+        # Obtener el usuario en sesión
+        user_id = request.session.get('user_id')
+        if not user_id:
+            return JsonResponse({'success': False, 'message': 'Producto agregado al carrito'}, status=401)
+
+        user = Usuario.objects.get(idUsuario=user_id)
+        producto = get_object_or_404(Producto, id=producto_id)
+
+        # Agregar producto al carrito
+        carrito_producto, created = CarritoProducto.objects.get_or_create(usuario=user, producto=producto)
+
+        if created:
+            message = 'Producto agregado al carrito'
+        else:
+            message = 'El producto ya está en el carrito'
+
+        return JsonResponse({'success': True, 'message': message})
+
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'message': 'Datos inválidos'}, status=400)
+    except Producto.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Producto no encontrado'}, status=404)
+    except Usuario.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Usuario no encontrado'}, status=404)
     
-    return redirect(request,'perfil')  # Redirige a la página principal después de agregar
-
-
 # Vista para obtener provincias según el departamento seleccionado
 def cargar_provincias_por_departamento(request):
     departamento_id = request.GET.get('departamento_id')

@@ -2,8 +2,7 @@
 <section class="contentP">
     <h1>Los Mejores Materiales para Tu Construcción</h1>
     <p>Calidad garantizada a precios competitivos. ¡Compra ahora y recibe tu pedido en la puerta de tu casa!</p>
-    
-    <<div class="product-grid" id="product-grid">
+    <div class="product-grid" id="product-grid">
         {% for producto in productos %}
         <div class="product-card" data-subcategoria-id="{{ producto.subcategoria.id }}">
             <img src="{{ producto.imagenes.first.ruta.url }}" alt="{{ producto.nombre }}">
@@ -11,11 +10,54 @@
             <h2>{{ producto.subcategoria.nombre }}</h2>
             <p>{{ producto.descripcion }}</p>
             <span class="precio">{{ producto.precio }} Bs</span>
-            <button class="agregar-button">Agregar al Carrito</button>
+            <button class="agregar-button" data-producto-id="{{ producto.id }}">Agregar al Carrito</button>
         </div>
         {% empty %}
         <p>No hay productos disponibles en este momento.</p>
         {% endfor %}
     </div>
-    
 </section>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.agregar-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const productoId = this.getAttribute('data-producto-id');
+                const csrftoken = getCookie('csrftoken');  // Obtener el token CSRF
+
+                fetch('/agregar_al_carrito/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken  // Enviar el token CSRF
+                    },
+                    body: JSON.stringify({ 'producto_id': productoId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);  // Mostrar mensaje al usuario
+                })
+                .catch(error => {
+                    console.error('Error al agregar al carrito:', error);
+                });
+            });
+        });
+
+        // Función para obtener el valor de una cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+
+</script>

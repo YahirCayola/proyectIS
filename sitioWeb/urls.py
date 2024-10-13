@@ -22,6 +22,8 @@ urlpatterns = [
     path('logout/',logout_request, name='logout'),#logout --es salirce o cerrar sesion
     path('ofertar/',ofertarMView,name = 'ofertar'),
     path('get_provincias/', cargar_provincias_por_departamento, name='get_provincias'),
+    path('agregar_al_carrito/', agregar_al_carrito, name='agregar_al_carrito'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
