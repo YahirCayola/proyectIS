@@ -73,10 +73,10 @@ const actualizarEstadoBotonOfertar = () => {
 
     if (camposCompletos) {
         buttonOfertar.disabled = false;
-        buttonOfertar.style.backgroundColor = '#006400'; // Verde oscuro
+        buttonOfertar.style.backgroundColor = '#014040'; // Verde oscuro
     } else {
         buttonOfertar.disabled = true;
-        buttonOfertar.style.backgroundColor = '#666'; // Verde claro (cuando está deshabilitado)
+        buttonOfertar.style.backgroundColor = '#4c9c8d'; // Verde claro (cuando está deshabilitado)
     }
 };
 
@@ -106,7 +106,7 @@ const inicializarEventos = () => {
         text: "¡Los datos ingresados NO se guardaran!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#006400",
+        confirmButtonColor: "#014040",
         cancelButtonColor: "#d33",
         confirmButtonText: "Sí",
         cancelButtonText: "Cancelar"

@@ -15,26 +15,21 @@
 
     <div class="nav-links" id="navLinks">
         <a href="{% url 'base' %}" class="nav-link">Inicio</a> <!-- Asegúrate de tener la URL configurada -->
-        <!-- Botón del carrito -->
-            <a href="#" class="nav-link" onclick="toggleCart()">
-                Carrito <span class="cart-count" id="cartCount">0</span>
-            </a>
-            <!-- Ventana emergente del carrito -->
-            <div class="cart-popup" id="cartPopup">
-                <h3>Carrito de Compras</h3>
-                <ul class="cart-items" id="cartItems">
-                    <!-- Aquí se cargarán los productos -->
-                    <li class="cart-item">
-                        <span>Ladrillos - 50.00 bs x 1 = 50.00 bs</span>
-                        <button class="remove-btn">Eliminar</button>
-                    </li>
-                    <li class="cart-item">
-                        <span>Arena - 300.00 bs x 1 = 300.00 bs</span>
-                        <button class="remove-btn">Eliminar</button>
-                    </li>
-                </ul>
-                <p class="cart-total">Total: <span id="cartTotal">350.00 bs</span></p>
-            </div>
+         <!-- Botón del carrito -->
+         <button class="nav-link" onclick="toggleCart()">
+            Carrito <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <!-- Ventana emergente del carrito -->
+        <div class="cart-popup" id="cartPopup">
+            <h3>Carrito de Compras</h3>
+            <ul class="cart-items" id="cartItems">
+                <!-- Aquí se cargarán los productos -->
+                <li class="cart-item">
+                    <button class="remove-btn">Eliminar</button>
+                </li>
+            </ul>
+            <p class="cart-total">Total: <span id="cartTotal">350.00 bs</span></p>
+        </div>
 
                 <!--<a href=# class="nav-link">Iniciar Sesion</a>-->
                 {% if request.session.user_id %}

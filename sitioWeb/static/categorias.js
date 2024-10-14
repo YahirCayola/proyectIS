@@ -31,7 +31,7 @@ document.querySelectorAll('.subcategory-btn').forEach(button => {
         const subcategory = this;
 
         // Cambiar el color de fondo al presionar el botón
-        subcategory.style.backgroundColor = '#ff4500';
+        subcategory.style.backgroundColor = 'var(--tertiary-color)';
 
         // Después de 200 ms, restaurar el color original
         setTimeout(() => {

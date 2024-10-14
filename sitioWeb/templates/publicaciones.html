@@ -11,7 +11,12 @@
             <h2>{{ producto.subcategoria.nombre }}</h2>
             <p>{{ producto.descripcion }}</p>
             <span class="precio">{{ producto.precio }} Bs</span>
-            <button class="agregar-button" data-producto-id="{{ producto.id }}">Agregar al Carrito</button>
+            <button class="agregar-button" data-producto-id="{{ producto.id }}" 
+                    data-producto-nombre="{{ producto.nombre }}"
+                    data-producto-precio="{{ producto.precio }}"
+                    onclick="agregarAlCarrito(this)">
+                Agregar al Carrito
+            </button>
         </div>
         {% empty %}
         <p>No hay productos disponibles en este momento.</p>
@@ -20,143 +25,116 @@
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cartCount = document.querySelector('.cart-count');
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-        // Actualiza el contador del carrito
-        function actualizarContadorCarrito() {
-            cartCount.textContent = cart.length;
-        }
-    
-        // Inicializa el contador del carrito
-        actualizarContadorCarrito();
-    
+    // Actualiza la vista del carrito al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        actualizarCarritoVista();
+
+        // Añadir eventos a los botones de agregar al carrito
         document.querySelectorAll('.agregar-button').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const productoId = this.getAttribute('data-producto-id');
-                const csrftoken = getCookie('csrftoken');  // Obtener el token CSRF
-    
+                const csrftoken = getCookie('csrftoken'); // Obtener el token CSRF
+
                 // Verificar si el usuario está autenticado
                 if ("{{ request.session.user_id|default:'' }}") {
-                    // Usuario autenticado: enviar el producto al servidor
+                    // Enviar solicitud al servidor para agregar al carrito
                     fetch('/agregar_al_carrito/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRFToken': csrftoken  // Enviar el token CSRF
+                            'X-CSRFToken': csrftoken
                         },
                         body: JSON.stringify({ 'producto_id': productoId })
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message);  // Mostrar mensaje al usuario
-                        // Si el producto se agregó, recargar el carrito
+                        alert(data.message); // Mostrar mensaje al usuario
                         if (data.success) {
-                            toggleCart();  // Opcional: Cargar el carrito automáticamente
+                            toggleCart(); // Actualizar el popup del carrito
                         }
                     })
-                    .catch(error => {
-                        console.error('Error al agregar al carrito:', error);
-                    });
+                    .catch(error => console.error('Error al agregar al carrito:', error));
                 } else {
-                    // Usuario no autenticado: almacenar en localStorage
+                    // Guardar en localStorage si no está autenticado
                     const producto = {
                         id: productoId,
                         nombre: this.parentElement.querySelector('h3').textContent,
-                        precio: this.parentElement.querySelector('.precio').textContent,
+                        precio: parseFloat(this.parentElement.querySelector('.precio').textContent),
                         cantidad: 1
                     };
-    
-                    cart.push(producto);
-                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                    let productoExistente = carrito.find(p => p.id === producto.id);
+
+                    if (productoExistente) {
+                        productoExistente.cantidad += 1;
+                    } else {
+                        carrito.push(producto);
+                    }
+
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
                     alert('Producto agregado al carrito. (No autenticado)');
-                    actualizarContadorCarrito();
+                    actualizarCarritoVista();
                 }
             });
         });
-    
-        function toggleCart() {
-            const cartPopup = document.getElementById('cartPopup');
-            const cartItemsList = document.getElementById('cartItems');
-            cartItemsList.innerHTML = '';  // Limpiar la lista antes de cargar productos
-    
-            // Verificar si el usuario está autenticado
-            if ("{{ request.session.user_id|default:'' }}") {
-                // Usuario autenticado: cargar carrito desde la base de datos
-                fetch('/obtener_carrito/')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            data.carrito.forEach(producto => {
-                                agregarProductoAlHTML(producto.id, producto.nombre, producto.precio, producto.cantidad);
-                            });
-                        }
-                    })
-                    .catch(error => console.error('Error al cargar el carrito:', error));
-            } else {
-                // Usuario no autenticado: cargar carrito desde localStorage
-                cart.forEach(producto => {
-                    agregarProductoAlHTML(producto.id, producto.nombre, producto.precio, producto.cantidad);
-                });
-            }
-    
-            // Mostrar u ocultar la ventana del carrito
-            cartPopup.classList.toggle('visible');
-        }
-    
-        // Función para agregar productos al HTML del carrito
-        function agregarProductoAlHTML(id, nombre, precio, cantidad) {
-            const cartItemsList = document.getElementById('cartItems');
-    
-            const li = document.createElement('li');
-            li.classList.add('cart-item');
-            li.innerHTML = `
-                <span>${nombre} - ${precio} Bs x ${cantidad} = ${(parseFloat(precio) * cantidad).toFixed(2)} Bs</span>
-                <button class="remove-btn" data-producto-id="${id}">Eliminar</button>
+    });
+
+    // Función para actualizar la vista del carrito
+    function actualizarCarritoVista() {
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const cartCountElement = document.getElementById('cartCount');
+
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        cartItemsContainer.innerHTML = ''; // Limpiar la lista
+
+        let total = 0;
+
+        carrito.forEach((producto, index) => {
+            const item = document.createElement('li');
+            item.classList.add('cart-item');
+            item.innerHTML = `
+                <span>${producto.nombre} - ${producto.precio} Bs x ${producto.cantidad} = 
+                ${(producto.precio * producto.cantidad).toFixed(2)} Bs</span>
+                <button class="remove-btn" onclick="eliminarDelCarrito(${index})">Eliminar</button>
             `;
-    
-            li.querySelector('.remove-btn').addEventListener('click', () => {
-                eliminarProducto(id);
-            });
-    
-            cartItemsList.appendChild(li);
-        }
-    
-        // Función para eliminar un producto del carrito
-        function eliminarProducto(id) {
-            const userId = "{{ request.session.user_id|default:'' }}";  // Verificar si hay sesión
-            if (userId) {
-                // Usuario autenticado: eliminar de la base de datos
-                fetch(`/eliminar_del_carrito/${id}/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken')  // Enviar token CSRF
-                    }
-                }).then(() => toggleCart());
-            } else {
-                // Usuario no autenticado: eliminar de localStorage
-                cart = cart.filter(producto => producto.id !== id);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                toggleCart();  // Volver a abrir el carrito actualizado
-                actualizarContadorCarrito();  // Actualizar el contador
-            }
-        }
-    
-        // Función para obtener el valor de una cookie
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
+            cartItemsContainer.appendChild(item);
+            total += producto.precio * producto.cantidad;
+        });
+
+        cartTotalElement.textContent = `${total.toFixed(2)} Bs`;
+        cartCountElement.textContent = carrito.length;
+    }
+
+    // Función para eliminar productos del carrito en localStorage
+    function eliminarDelCarrito(index) {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.splice(index, 1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarCarritoVista();
+    }
+
+    // Función para mostrar/ocultar el popup del carrito
+    function toggleCart() {
+        const cartPopup = document.getElementById('cartPopup');
+        cartPopup.classList.toggle('active');
+    }
+
+    // Función para obtener el token CSRF desde las cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
-            return cookieValue;
         }
-    });
+        return cookieValue;
+    }
+
     </script>    
