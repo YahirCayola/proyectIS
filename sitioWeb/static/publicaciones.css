@@ -12,26 +12,26 @@
 }
 
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    display: grid; /* Usamos grid para una distribución más fácil */
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas de igual ancho */
+    gap: 1rem; /* Espacio entre las tarjetas */
 }
 
 .product-card {
+    
     background-color: var(--white);
     border-radius: 4px;
     padding: 1rem;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-height: 400px; /* Mantener la altura mínima */
+    transition: transform 0.2s; /* Transición suave */
 }
+
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    background-color:#02735e
+    background-color: #02735e;
 }
 
 .product-card img {
@@ -40,6 +40,7 @@
     object-fit: cover; /* Mantiene la proporción de la imagen y recorta si es necesario */
     margin-bottom: 1rem;
 }
+
 .product-card p {
     font-size: 1.0rem;
     max-height: 4.5em; /* Ajusta este valor para permitir 3 líneas de texto */
@@ -47,28 +48,27 @@
     text-overflow: ellipsis;
     white-space: normal;
 }
+
 .product-card:hover p {
-    color:#fff;
-    max-height: 4.5em; /* Ajusta este valor para permitir 3 líneas de texto */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+    color: #fff;
 }
+
 .product-card h3 {
     color: #02735e;
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
+
 .product-card:hover h3 {
     color: #fff;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
 }
+
 .product-card h2 {
     color: #ffffff;
     font-size: 0.1rem;
     margin-bottom: 0.5rem;
 }
+
 .product-card:hover h2 {
     color: #02735e;
 }
@@ -105,19 +105,25 @@
     text-overflow: ellipsis;
     white-space: normal;
 }
+
 .product-card:hover .precio {
-    color:#fff;
-    max-height: 4.5em; /* Ajusta este valor para permitir 3 líneas de texto */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+    color: #fff;
 }
 
 @media (max-width: 768px) {
     .categories {
         order: -1;
     }
+
     .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* Para pantallas más pequeñas, dos tarjetas por fila */
+        
+    }
+    .product-card {
+        padding: 1rem;
+        height: min-content; /* Permite que se ajuste automáticamente a su contenido */
+        display: flex; /* Usar flexbox para el contenido */
+        flex-direction: column; /* Organiza el contenido verticalmente */
+        justify-content: space-around; /* Espacio entre los elementos internos */
     }
 }

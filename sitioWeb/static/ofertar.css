@@ -126,11 +126,11 @@ input[type="file"] {
 }
 
 .btn-primary {
-    background-color: #006400;
+    background-color: #666;
 }
 
 .btn-secondary {
-    background-color: #666;
+    background-color: #c02323;
 }
 
 .btn:hover {

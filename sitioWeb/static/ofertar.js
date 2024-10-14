@@ -103,18 +103,18 @@ const inicializarEventos = () => {
     document.getElementById('button-cancelar').addEventListener('click', function() {
         Swal.fire({
         title: "¿Estás seguro?",
-        text: "¡No podrás revertir esto!",
+        text: "¡Los datos ingresados NO se guardaran!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#006400",
         cancelButtonColor: "#d33",
         confirmButtonText: "Sí",
         cancelButtonText: "Cancelar"
         }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
-            title: "¡Bueno pues te jodes prro!",
-            text: "Tu Oferta ha sido eliminado.",
+            title: "¡Oferta eliminada!",
+            text: "Tu publicacion ha sido eliminado correctamente",
             icon: "success"
         }).then(() => {
             // Redireccionar a la página home.html
