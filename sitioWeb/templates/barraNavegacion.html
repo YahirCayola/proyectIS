@@ -5,9 +5,11 @@
             <img src="{% static 'LogoIS_Oficial.png' %}" alt="Logo" class="logo-img">
         </a>
     </div>
-    <div class="search-bar">
-        <input class="inputBuscar" id="inputBuscar" type="text" placeholder="Buscar productos...">
-        <button onclick="buscarProducto()"><i class="fas fa-search"></i></button>
+    <div class="search-bar">        
+        {% if not is_profile_page %}
+            <input class="inputBuscar" id="inputBuscar" type="text" placeholder="Buscar productos...">
+            <button onclick="buscarProducto()"><i class="fas fa-search"></i></button>
+        {% endif %}
         <p id="noResultMessage" style="display: none; color: red;">No se encontró ningún producto con ese nombre.</p>
     </div>
 

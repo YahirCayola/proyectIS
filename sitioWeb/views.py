@@ -98,7 +98,7 @@ def perfil_view(request):
             
         user.save()  # Guarda los cambios en la base de datos
 
-    return render(request, 'perfil.html', {'user': user})
+    return render(request, 'perfil.html', {'user': user,'is_profile_page': True})
 
 def logout_request(request):
     logout(request)
@@ -201,4 +201,4 @@ def ofertarMView(request):
         return redirect('base')
 
     # Si la solicitud es GET, renderizar el formulario con el usuario
-    return render(request, 'ofertar.html', {'user': user})
+    return render(request, 'ofertar.html', {'user': user,'is_profile_page': True})
